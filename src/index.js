@@ -1,4 +1,9 @@
 const path = require('path')
+require('dotenv').config();
+const connectDB = require('./config/db'); 
+connectDB();
+
+
 const express = require('express')
 const morgan = require('morgan')
 var methodOverride = require('method-override')
@@ -17,7 +22,7 @@ const db = require('./config/db')
 const app = express()
 
 // Connect to DB
-db.connect()
+connectDB()
     .then(result => {
         const port = 3000
         app.listen(port, () => {
@@ -26,10 +31,10 @@ db.connect()
     })
     .catch()
 
-const store = new MongoDBStore({
-    uri: 'mongodb://localhost:27017/duan',
-    collection: 'sessions'
-})
+    const store = new MongoDBStore({
+        uri: 'mongodb+srv://thao101191:dBM8FYL4lcdSCyTX@cluster0.clm1j.mongodb.net/vegetable?retryWrites=true&w=majority&appName=Cluster0',
+        collection: 'sessions'
+    });
 
 app.use(express.static(path.join(__dirname, 'public')))
 
